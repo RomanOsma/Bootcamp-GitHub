@@ -162,3 +162,18 @@ git stash
 git stash list
 git stash clear
 git stash apply
+git stash pop
+
+
+git branch
+git branch "home"
+git checkout home
+git checkout -b NO SE PARA QUE VALE
+
+Gitflow
+
+git checkout -b "develop"
+git checkout -b "staging"
+git branch
+
+git branch -D home
