@@ -185,3 +185,6 @@ fix/<nombre>
 improvement/<nombre>
 
 git merge --squash
+git checkout master
+git branch
+git merge develop
