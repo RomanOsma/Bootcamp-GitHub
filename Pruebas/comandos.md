@@ -183,3 +183,5 @@ Prefijos
 feature/<nombre>
 fix/<nombre>
 improvement/<nombre>
+
+git merge --squash
