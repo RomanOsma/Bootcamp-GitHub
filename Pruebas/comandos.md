@@ -150,6 +150,7 @@ git add -A
 git add --all
 
 git commit -m ""Descripocion
+git commit --amend -m "Update Intex.html"
 git log
 git status
 git diff
