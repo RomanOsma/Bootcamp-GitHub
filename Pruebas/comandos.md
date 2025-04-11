@@ -170,10 +170,16 @@ git branch "home"
 git checkout home
 git checkout -b NO SE PARA QUE VALE
 
-Gitflow
+Gitflow -informacion como se trabaja con el ¿?
 
 git checkout -b "develop"
 git checkout -b "staging"
 git branch
 
 git branch -D home
+
+Prefijos
+
+feature/<nombre>
+fix/<nombre>
+improvement/<nombre>
