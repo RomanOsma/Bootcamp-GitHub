@@ -162,3 +162,8 @@ git stash
 git stash list
 git stash clear
 git stash apply
+
+git branch
+git branch "home"
+git checkout home
+git checkout -b NO SE PARA QUE VALE
