@@ -102,6 +102,7 @@ Estos comandos te ayudan a ver qué ha pasado en tu repositorio.
     git diff --staged
     ```
 
+
 ## 4. Trabajar con Repositorios Remotos (Básico)
 
 Estos comandos son esenciales para colaborar o para tener una copia de seguridad de tu repositorio en un servidor externo (como GitHub).
@@ -141,3 +142,23 @@ Irás añadiendo más comandos aquí a medida que avances en el bootcamp, como:
 *   ... ¡y muchos más!
 
 ---
+git init
+
+git add <archivo>
+git add .
+git add -A
+git add --all
+
+git commit -m ""Descripocion
+git log
+git status
+git diff
+
+git show
+git log --oneline
+git checkout <id commit>
+
+git stash
+git stash list
+git stash clear
+git stash apply
