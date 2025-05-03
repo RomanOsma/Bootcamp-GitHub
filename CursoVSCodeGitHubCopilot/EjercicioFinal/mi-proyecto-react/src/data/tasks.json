@@ -1,0 +1,19 @@
+{
+  "tasks": [
+    {
+      "title": "Aprender React",
+      "description": "Estudiar los fundamentos de React y sus hooks",
+      "completed": false
+    },
+    {
+      "title": "Crear componentes",
+      "description": "Desarrollar componentes reutilizables",
+      "completed": true
+    },
+    {
+      "title": "Practicar TypeScript",
+      "description": "Mejorar el conocimiento de TypeScript",
+      "completed": false
+    }
+  ]
+}
