@@ -28,5 +28,5 @@ jobs:
       - name: LS
         run: |
           ls
-          chmod +x ./script.sh
-          ./script.sh
+          chmod +x ./.github/script.sh
+          ./.github/script.sh
