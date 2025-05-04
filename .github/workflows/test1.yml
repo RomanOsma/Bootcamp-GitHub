@@ -5,23 +5,24 @@ on: [push]
 jobs:
   hola:
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:5.7
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: inventory_db
+          MYSQL_USER: root
+          MYSQL_PASSWORD: Aroman1984
+        options: >-
+          --health-cmd "mysqladmin ping -pAroman1984"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 3
     steps:
       - name: Checkout code
         uses: actions/checkout@v4  # Versión principal recomendada
-
-      - services:
-        mysql:
-          image: mysql:5.7
-          ports:
-            - 3306:3306
-          env:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: inventory_db
-            MYSQL_USER: root
-            MYSQL_PASSWORD: Aroman1984
-          options: >-
-            --health-cmd "mysqladmin ping --silent" --health-interval 10s
-            --health-timeout 5s --health-retries 3
         
       - name: Ejecutar comandos básicos
         run: |
@@ -44,13 +45,12 @@ jobs:
         run: |
           ls -la
           sudo apt-get update  # Comando correcto para Linux
-          chmod +x ./.github/script.sh
           ./.github/script.sh
 
       - name: Ejecutar script Actions
         run: |
           echo "Hola Mundo desde el script de Actions"
-          chmod +x ./.github/actions/my_action/action.yml
+          ./.github/actions/my_action/action.yml
 
 
       - name: Setup Node.js environment
