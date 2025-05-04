@@ -1,0 +1,39 @@
+name: "My Action"
+description: "My custom action"
+author: "Angel Roman"
+
+run:
+  using: "composite"
+  steps:
+    - name: Step 1
+      id: step_id
+      shell: bash
+      run: |
+        echo "Hello World"
+        echo "My input is ${{ inputs.my_input }}"
+        echo "My second input is ${{ inputs.my_input2 }}"
+        echo "::set-output name=my_output::Hello World"
+        echo "::set-output name=my_output2::Hello World 2"
+
+branding:
+  icon: "terminal"
+  color: "blue"
+
+inputs:
+  my_input:
+    description: "My input"
+    required: true
+    default: "Hello World"
+  my_input2:
+    description: "My second input"
+    required: false
+    default: "Hello World 2"
+
+outputs:
+  my_output:
+    description: "My output"
+    value: ${{ steps.step_id.outputs.my_output }}
+  my_output2:
+    description: "My second output"
+    value: ${{ steps.step_id.outputs.my_output2 }}
+

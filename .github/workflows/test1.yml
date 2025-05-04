@@ -33,6 +33,13 @@ jobs:
           chmod +x ./.github/script.sh
           ./.github/script.sh
 
+      - name: Ejecutar script Actions
+        run: |
+          echo "Hola Mundo desde el script de Actions"
+          chmod +x ./.github/actions/my_action/action.yml
+          ./.github/actions/my_action/action.yml
+
+
       - name: Setup Node.js environment
         uses: actions/setup-node@v4.4.0
         with:
