@@ -4,20 +4,18 @@ on: [push]
 
 jobs:
   hola:
-    - name: Hola Mundo
-      run: echo "Hola Mundo"
 
-  steps:
-    - name: Crear archivo
-      run: touch hola.txt
-    
-    - name: Escribir mensaje
-      run: echo "Hola Mundo" >> hola.txt
+    steps:
+      - name: Crear archivo
+        run: touch hola.txt
       
-    - name: Mostrar contenido
-      run: cat hola.txt
+      - name: Escribir mensaje
+        run: echo "Hola Mundo" >> hola.txt
+        
+      - name: Mostrar contenido
+        run: cat hola.txt
 
-  other_job:
+  other:
     runs-on: ubuntu-latest
     
     steps:
