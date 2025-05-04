@@ -26,4 +26,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.2.2
       - name: LS
-        run: ls
+        run: |
+          chmod +x script.sh
+          ./script.sh
