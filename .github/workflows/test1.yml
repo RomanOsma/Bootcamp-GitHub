@@ -1,32 +1,31 @@
-name: Hola Mundo
+name: Hola Mundo Workflow
 
 on: [push]
 
 jobs:
   hola:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Hola Mundo
-        run: echo "Hola Mundo"
-
-      - name: Crear archivo
-        run: touch hola.txt
-    
-      - name: Escribir mensaje
-        run: echo "Hola Mundo" >> hola.txt
-      
-      - name: Mostrar contenido
-        run: cat hola.txt
+      - name: Checkout code
+        uses: actions/checkout@v4  # Versión principal recomendada
+        
+      - name: Ejecutar comandos básicos
+        run: |
+          echo "Hola Mundo"
+          touch hola.txt
+          echo "Hola Mundo" >> hola.txt
+          cat hola.txt
 
   other:
     runs-on: ubuntu-latest
     needs: hola
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.2.2
-      - name: LS
+        uses: actions/checkout@v4
+        
+      - name: Ejecutar script Linux
         run: |
-          ls
+          ls -la
+          sudo apt-get update  # Comando correcto para Linux
           chmod +x ./.github/script.sh
           ./.github/script.sh
