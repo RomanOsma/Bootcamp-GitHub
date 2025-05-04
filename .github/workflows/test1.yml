@@ -6,20 +6,20 @@ jobs:
   hola:
     steps:
     -name: Hola Mundo
-    run: echo "Hola Mundo"
+      run: echo "Hola Mundo"
 
     -name: Crear archivo
-    run: touch hola.txt
+      run: touch hola.txt
     
     -name: Escribir mensaje
-    run: echo "Hola Mundo" >> hola.txt
+      run: echo "Hola Mundo" >> hola.txt
       
     -name: Mostrar contenido
-    run: cat hola.txt
+      run: cat hola.txt
 
   other:
     runs-on: ubuntu-latest
     
     steps:
     -name: LS
-    run: ls
+      run: ls
