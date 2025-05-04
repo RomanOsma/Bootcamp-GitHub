@@ -23,9 +23,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Esperar inicio de MySQL
-        run: sleep 25 
-
       - name: LS
         run: ls -la
 
