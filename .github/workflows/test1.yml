@@ -48,3 +48,5 @@ jobs:
           extensions: mbstring, xml, curl, zip, gd, mysqli, pdo_mysql, bcmath, soap, intl, redis
           coverage: none  # Cambia esto a 'xdebug' si necesitas cobertura de código
           tools: composer:v2.1.3  # Cambia esto a la versión de Composer que necesites
+
+#git rm --cached Modulo4/CursoVSCodeGitHubCopilot/Calculadora/matematicas   para eliminar el seguimineto y no darm  fallo de git
