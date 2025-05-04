@@ -37,7 +37,6 @@ jobs:
         run: |
           echo "Hola Mundo desde el script de Actions"
           chmod +x ./.github/actions/my_action/action.yml
-          ./.github/actions/my_action/action.yml
 
 
       - name: Setup Node.js environment
