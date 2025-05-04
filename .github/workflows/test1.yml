@@ -1,11 +1,8 @@
 name: Hola Mundo
 
-on:
-  push:
-    branches:
-      - master
+on: [push]
 
-jons:
+jobs:
   hola:
     runs-on: ubuntu-latest
 
