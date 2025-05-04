@@ -22,10 +22,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
+
+      - name: LS
+        run: ls -la
+
       - name: Ejecutar script Linux
         run: |
           ls -la
           sudo apt-get update  # Comando correcto para Linux
           chmod +x ./.github/script.sh
           ./.github/script.sh
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.4.0
