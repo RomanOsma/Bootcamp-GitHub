@@ -3,32 +3,18 @@ name: Hola Mundo Workflow
 on: [push]
 
 jobs:
-  hola:
+  paso1:
     runs-on: ubuntu-latest
     services:
       mysql:
         image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: Aroman1984  # Cambia esto a la contraseña que necesites
+          MYSQL_DATABASE: inventory_db  # Cambia esto al nombre de la base de datos que necesites       
         ports:
           - 3306:3306
 
-        env:
-          MYSQL_ROOT_PASSWORD: Aroman1984
-          MYSQL_DATABASE: inventary_db  # Nombre de la base de datos
-          MYSQL_USER: root
-          MYSQL_PASSWORD: Aroman1984
-
     steps:
-      - name: testdb  # Nombre de la base de datos
-        run: |
-          echo "Hola Mundo desde el contenedor de MySQL"
-          echo "La base de datos es testdb"
-          echo "El usuario es root"
-          echo "La contraseña es Aroman1984"
-          echo "El puerto es 3306"
-          echo "La imagen es mysql:5.7"
-          echo "El contenedor está en ejecución"
-
-        uses: actions/checkout@v4  # Versión principal recomendada
       - name: Checkout code
         uses: actions/checkout@v4  # Versión principal recomendada
         
@@ -39,7 +25,7 @@ jobs:
           echo "Hola Mundo" >> hola.txt
           cat hola.txt
 
-  other:
+  paso2:
     runs-on: ubuntu-latest
     needs: hola
     steps:

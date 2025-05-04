@@ -8,20 +8,13 @@ run:
     - name: Checkout code
       uses: actions/checkout@v4  # Versión principal recomendada
 
-    - name: Hello World
-      id: hello_world
+    - name: Saludo
+      id: Saludo
       shell: bash
       run: |
         echo "Hello World"
         echo "Hello ${{ inputs.my_input }}"
         echo "Hello ${{ inputs.my_input2 }}"
-        echo "::set-output name=my_input::${{ inputs.my_input }}"
-        echo "::set-output name=my_input2::${{ inputs.my_input2 }}"
-    - name: Step 1
-      id: step_id
-      shell: bash
-      run: |
-        echo "Hello World"
 
 branding:
   icon: "terminal"
@@ -31,18 +24,10 @@ inputs:
   my_input:
     description: "My primer mennsaje"
     required: true
-    default: "Hello World"
+    default: "Angel Roman"
   my_input2:
     description: "My segundo mennsaje
     required: false
-    default: "Hello World 2"
-
-outputs:
-  my_output:
-    description: "My output message"
-    value: ${{ imputs.my_input }}
-  my_output2:
-    description: "My output message 2"
-    value: ${{ steps.step_id.outputs.my_input }}
+    default: "Grandes Líderes"
 
 
