@@ -2,14 +2,20 @@ name: "My Action"
 description: "My custom action"
 author: "Angel Roman"
 
-run:
+inputs:
+  my_input:
+    description: "My primer mensaje"
+    required: true
+    default: "Angel Roman"
+  my_input2:
+    description: "My segundo mensaje"  # Comillas cerradas
+    required: false
+    default: "Grandes Líderes"
+
+runs:
   using: "composite"
   steps:
-    - name: Checkout code
-      uses: actions/checkout@v4  # Versión principal recomendada
-
     - name: Saludo
-      id: Saludo
       shell: bash
       run: |
         echo "Hello World"
@@ -19,15 +25,3 @@ run:
 branding:
   icon: "terminal"
   color: "blue"
-
-inputs:
-  my_input:
-    description: "My primer mennsaje"
-    required: true
-    default: "Angel Roman"
-  my_input2:
-    description: "My segundo mennsaje
-    required: false
-    default: "Grandes Líderes"
-
-
