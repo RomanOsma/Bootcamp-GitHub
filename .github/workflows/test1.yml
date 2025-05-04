@@ -13,7 +13,7 @@ jobs:
         env:
           MYSQL_DATABASE: inventory_db
           MYSQL_USER: root
-          MYSQL_PASSWORD: Aroman1984
+          MYSQL_ROOT_PASSWORD:: Aroman1984
         options: >-
           --health-cmd "mysqladmin ping -pAroman1984"
           --health-interval 10s
@@ -37,8 +37,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Esperar inicio de MySQL
+        run: sleep 25 
+
       - name: LS
         run: ls -la
+
+      - name: Instalar mysql-client
+        run: sudo apt-get install -y mysql-client
 
       - name: Ejecutar script Linux
         run: |
