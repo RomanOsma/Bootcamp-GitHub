@@ -1,13 +1,9 @@
 name: Hola Mundo
 
-
 on:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
-      - main
+      - master
 
 jons:
   hola:
