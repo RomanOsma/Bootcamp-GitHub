@@ -15,7 +15,6 @@ jobs:
           touch hola.txt
           echo "Hola Mundo" >> hola.txt
           cat hola.txt
-
   other:
     runs-on: ubuntu-latest
     needs: hola
@@ -26,21 +25,16 @@ jobs:
       - name: LS
         run: ls -la
 
-      - name: Instalar mysql-client
-        run: sudo apt-get install -y mysql-client
-
       - name: Ejecutar script Linux
         run: |
           ls -la
           sudo apt-get update  # Comando correcto para Linux
+          chmod +x ./.github/script.sh
           ./.github/script.sh
-
       - name: Ejecutar script Actions
         run: |
           echo "Hola Mundo desde el script de Actions"
-          ./.github/actions/my_action/action.yml
-
-
+          chmod +x ./.github/actions/my_action/action.yml
       - name: Setup Node.js environment
         uses: actions/setup-node@v4.4.0
         with:
