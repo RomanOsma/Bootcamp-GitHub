@@ -5,9 +5,26 @@ on: [push]
 jobs:
   hola:
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:5.7
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_DATABASE: personas_db
+          MYSQL_ROOT_PASSWORD: Aroman1984
+          MYSQL_ALLOW_EMPTY_PASSWORD: "false"
+        options: >-
+          --health-cmd "mysqladmin ping -pAroman1984"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 3
+        volumes:
+          - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4  # Versión principal recomendada
+        uses: actions/checkout@v4
         
       - name: Ejecutar comandos básicos
         run: |
@@ -23,38 +40,44 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: LS
-        run: ls -la
+      - name: Esperar inicio de MySQL
+        run: |
+          for i in {1..10}; do
+            mysqladmin ping -h127.0.0.1 -uroot -pAroman1984 --silent && break
+            sleep 5
+          done
 
-      - name: Instalar mysql-client
-        run: sudo apt-get install -y mysql-client
+      - name: Instalar dependencias
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y mysql-client python3 python3-pip
+          pip3 install mysql-connector-python
 
-      - name: Ejecutar script Linux
+      - name: Verificar entorno
         run: |
           ls -la
-          sudo apt-get update  # Comando correcto para Linux
-          ./.github/script.sh
+          mysql -h 127.0.0.1 -u root -pAroman1984 -e "SHOW DATABASES;"
 
-      - name: Ejecutar script Actions
-        run: |
-          echo "Hola Mundo desde el script de Actions"
-          ./.github/actions/my_action/action.yml
+      - name: Ejecutar script Python
+        run: python3 script.py
 
-
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v4.4.0
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: latest  # Cambia esto a la versión de Node.js que necesites
+          node-version: '20'
 
-      - name: node version
+      - name: Mostrar versión Node
         run: node --version
 
-      - name: PHP
+      - name: Configurar PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'  # Cambia esto a la versión de PHP que necesites
+          php-version: '8.3'
           extensions: mbstring, xml, curl, zip, gd, mysqli, pdo_mysql, bcmath, soap, intl, redis
-          coverage: none  # Cambia esto a 'xdebug' si necesitas cobertura de código
-          tools: composer:v2.1.3  # Cambia esto a la versión de Composer que necesites
+          coverage: none
+          tools: composer:v2.1.3
 
-#git rm --cached Modulo4/CursoVSCodeGitHubCopilot/Calculadora/matematicas   para eliminar el seguimineto y no darm  fallo de git
+      - name: Ejecutar script Shell
+        run: |
+          chmod +x ./.github/script.sh
+          ./.github/script.sh
