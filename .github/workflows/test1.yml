@@ -10,11 +10,13 @@ jobs:
         image: mysql:5.7
         ports:
           - 3306:3306
+
         env:
           MYSQL_ROOT_PASSWORD: Aroman1984
           MYSQL_DATABASE: inventary_db  # Nombre de la base de datos
           MYSQL_USER: root
           MYSQL_PASSWORD: Aroman1984
+
     steps:
       - name: testdb  # Nombre de la base de datos
         run: |
