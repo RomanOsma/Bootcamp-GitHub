@@ -5,22 +5,6 @@ on: [push]
 jobs:
   hola:
     runs-on: ubuntu-latest
-    services:
-      mysql:
-        image: mysql:5.7
-        ports:
-          - 3306:3306
-        env:
-          MYSQL_DATABASE: personas_db  # Coincide con Python
-          MYSQL_ROOT_PASSWORD: Aroman1984  # Corregido
-        options: >-
-          --health-cmd "mysqladmin ping -pAroman1984"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 3
-        volumes:
-          - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # Script de inicialización
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4  # Versión principal recomendada
