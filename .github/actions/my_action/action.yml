@@ -5,6 +5,18 @@ author: "Angel Roman"
 run:
   using: "composite"
   steps:
+    - name: Checkout code
+      uses: actions/checkout@v4  # Versión principal recomendada
+
+    - name: Hello World
+      id: hello_world
+      shell: bash
+      run: |
+        echo "Hello World"
+        echo "Hello ${{ inputs.my_input }}"
+        echo "Hello ${{ inputs.my_input2 }}"
+        echo "::set-output name=my_input::${{ inputs.my_input }}"
+        echo "::set-output name=my_input2::${{ inputs.my_input2 }}"
     - name: Step 1
       id: step_id
       shell: bash
