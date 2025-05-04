@@ -4,11 +4,8 @@ on: [push]
 
 jobs:
   hola:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Hola Mundo
-        run: echo "Hola Mundo"
+    - name: Hola Mundo
+      run: echo "Hola Mundo"
 
   steps:
     - name: Crear archivo
@@ -19,10 +16,11 @@ jobs:
       
     - name: Mostrar contenido
       run: cat hola.txt
-      
-    - name: Archivar resultado
-      uses: actions/upload-artifact@v3
-      if: always()
-      with:
-        name: hola-file
-        path: hola.txt
+
+  other_job:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: LS
+        run: ls
+
