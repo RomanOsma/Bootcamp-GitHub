@@ -3,36 +3,6 @@ name: Hola Mundo Workflow
 on: [push]
 
 jobs:
-  consultar_db:
-    runs-on: ubuntu-latest
-    services:
-      personas_db: # Este es el nombre del servicio que definiste
-        image: mysql:latest # Cambia la imagen si es diferente
-        env:
-          DB_PASSWORD: ${{ secrets.PASSWORDPHPMYADMIN }}
-          MYSQL_ROOT_PASSWORD: Aroman1984
-          MYSQL_DATABASE: personas_db
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-timeout=5s
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Conectar y ejecutar consulta MySQL
-        run: |
-          # Esperar a que el servicio de la base de datos esté saludable
-          echo "Esperando a que la base de datos esté lista..."
-          sleep 5 # Esperar unos segundos
-
-          # Intentar conectar y ejecutar la consulta
-          mysql -h localhost -u root -pAroman1984 -D personas_db -e "SELECT * FROM personas;"
-
-          # Si quieres hacer algo con los resultados, puedes redirigirlos a un archivo
-          mysql -h localhost -u root -p${{ secrets.PASSWORDPHPMYADMIN }} -D personas_db -e "SELECT * FROM personas;"
-          cat resultados.txt
-          echo "Consulta a la base de datos completada."
 
   saludo_personalizado:
     runs-on: ubuntu-latest
