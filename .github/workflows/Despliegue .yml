@@ -2,7 +2,7 @@ name: Despliegue a Servidor
 
 on:
   push:
-    branches: [main] # Cambia a tu rama principal
+    branches: [master] # Cambia a tu rama principal
 
 jobs:
   deploy:
