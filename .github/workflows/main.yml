@@ -25,16 +25,15 @@ jobs:
           echo "Esperando a que la base de datos esté lista..."
           sleep 15 # Esperar 15 segundos (puedes ajustar este valor)
 
+          - name: Verificar estado del servicio MySQL
+          run: |
+            echo "Intentando ping al servicio MySQL..."
+            timeout 60 bash -c 'until mysqladmin ping -h personas_db -u root -pAroman1984 --silent; do echo "."; sleep 2; done'
+            echo "Servicio MySQL parece estar listo."
+  
       - name: Conectar y ejecutar consulta MySQL
         run: |
-          echo "Intentando conectar a la base de datos..."
-          # Intento de conexión usando el nombre del servicio (recomendado)
           mysql -h personas_db -u root -pAroman1984 -D personas_db -e "SELECT * FROM personas;"
-
-          # Alternativa: Intento de conexión usando localhost y el puerto mapeado (probar si la anterior falla)
-          # mysql -h 127.0.0.1 -P 3306 -u root -pAroman1984 -D personas_db -e "SELECT * FROM personas;"
-
-          echo "Consulta a la base de datos completada."
 
   saludo_personalizado:
     runs-on: ubuntu-latest
