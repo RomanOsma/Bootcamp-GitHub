@@ -1,12 +1,11 @@
 Hola: Hola mundo
-Adios: Adios mundo 
+Adios: Adios mundo
 
 personalidad:
   nombre: Juan
   edad: 30
   ciudad: Madrid
   ocupacion: Ingeniero
-  
 
 persona:
   nombre: Juan
