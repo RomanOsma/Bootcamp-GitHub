@@ -17,7 +17,7 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Ejemplo de comando SSH (listar directorio remoto)
-        run: ssh -o StrictHostKeyChecking=no ${{ secrets.PASSWORDPHPMYADMIN }}@${{ secrets.SSH_HOST }} 'ls -l /var/www/'
+        run: ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} 'ls -l /var/www/'
 
       - name: Fin de la conexión SSH
         run: echo "Conexión SSH configurada y probada."
