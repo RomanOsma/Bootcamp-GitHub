@@ -28,11 +28,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Ejecutar comandos básicos
+      - name: Ejecutar comandos básicos y secretos
         run: |
           echo "Hola Mundo"
           touch hola.txt
           echo "Hola Mundo" >> hola.txt
+          echo "Secreto ${{ secrets.PASSWORDPHPMYADMIN }}" >> hola.txt
           cat hola.txt
 
   other:
