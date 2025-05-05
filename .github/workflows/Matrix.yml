@@ -1,0 +1,58 @@
+name: Despliegue con Matrix
+
+on:
+  push:
+    branches: [main] # Cambia a tu rama principal
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        server: ['staging', 'production']
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configurar conexión SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Desplegar a ${{ matrix.server }}
+        run: |
+          echo "Desplegando a ${{ matrix.server }}..."
+          # Define las credenciales y rutas basadas en la matriz
+          if [ "${{ matrix.server }}" == "staging" ]; then
+            HOST="${{ secrets.STAGING_HOST }}"
+            USERNAME="${{ secrets.STAGING_USERNAME }}"
+            DEPLOY_PATH="/var/www/staging_project/"
+          elif [ "${{ matrix.server }}" == "production" ]; then
+            HOST="${{ secrets.PRODUCTION_HOST }}"
+            USERNAME="${{ secrets.PRODUCTION_USERNAME }}"
+            DEPLOY_PATH="/var/www/production_project/"
+          else
+            echo "Servidor no reconocido: ${{ matrix.server }}"
+            exit 1
+          fi
+
+          echo "Copiando archivos a $USERNAME@$HOST:$DEPLOY_PATH"
+          scp -o StrictHostKeyChecking=no -r . "$USERNAME@$HOST:$DEPLOY_PATH"
+          echo "Despliegue a ${{ matrix.server }} completado."
+
+      - name: Ejecutar comandos remotos en ${{ matrix.server }} (opcional)
+        run: |
+          echo "Ejecutando comandos remotos en ${{ matrix.server }}..."
+          if [ "${{ matrix.server }}" == "staging" ]; then
+            SSH_HOST="${{ secrets.STAGING_HOST }}"
+            SSH_USERNAME="${{ secrets.STAGING_USERNAME }}"
+          elif [ "${{ matrix.server }}" == "production" ]; then
+            SSH_HOST="${{ secrets.PRODUCTION_HOST }}"
+            SSH_USERNAME="${{ secrets.PRODUCTION_USERNAME }}"
+          else
+            exit 1
+          fi
+          ssh -o StrictHostKeyChecking=no "$SSH_USERNAME@$SSH_HOST" 'cd /var/www/*_project/ && echo "Despliegue exitoso en ${{ matrix.server }}"'
+
+      - name: Fin del workflow de despliegue
+        run: echo "Workflow de despliegue finalizado."
