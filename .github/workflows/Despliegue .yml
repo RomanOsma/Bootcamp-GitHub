@@ -1,0 +1,32 @@
+name: Despliegue a Servidor
+
+on:
+  push:
+    branches: [main] # Cambia a tu rama principal
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configurar conexión SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Copiar archivos al servidor
+        run: |
+          echo "Iniciando despliegue..."
+          scp -o StrictHostKeyChecking=no -r . ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/var/www/tu_proyecto/
+          echo "Despliegue completado."
+
+      # Añade aquí los comandos adicionales necesarios para tu despliegue
+      # Por ejemplo, ejecutar scripts de migración, limpiar caché, etc.
+      - name: Ejecutar comandos remotos (opcional)
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} 'cd /var/www/tu_proyecto/ && php artisan migrate --force && php artisan cache:clear'
+
+      - name: Fin del workflow de despliegue
+        run: echo "Workflow de despliegue finalizado."
