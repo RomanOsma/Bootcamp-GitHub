@@ -1,0 +1,34 @@
+name: Larave CCI
+
+on: [push]
+
+jobs:
+  Larave-test:
+    runs-on: ubuntu-latest
+    
+    sercies:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: personas_db
+          MYSQL_ROOT_PASSWORD: Aroman1984
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd "mysqladmin ping --silent"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 3
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - bname: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1'
+        extensions: mbstring, xml, curl, zip, gd, mysqli, pdo_mysql, bcmath, exif, fileinfo, imagick
+        coverage: none
+    
+ 

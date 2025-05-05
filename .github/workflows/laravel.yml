@@ -1,0 +1,46 @@
+name: Larave CCI
+
+on: [push]
+
+jobs:
+  Larave-test:
+    runs-on: ubuntu-latest
+    
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: personas_db
+          MYSQL_ROOT_PASSWORD: Aroman1984
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd "mysqladmin ping --silent"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 3
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1' # Cambia a la versión de PHP que necesites
+          extensions: mbstring, xml, curl, zip, gd, mysqli, pdo_mysql, bcmath
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Generate application key
+        run: php artisan key:generate --ansi
+
+      - name: Set up environment variables
+        run: |
+          cp .env.example .env
+          php artisan config:cache
+          php artisan migrate:fresh --seed # Esto ejecutará las migraciones y los seeders en la base de datos de prueba
+
+      - name: Run PHPUnit tests
+        run: vendor/bin/phpunit
