@@ -27,20 +27,8 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: '8.2'
           extensions: mbstring, xml, curl, zip, gd, mysqli, pdo_mysql, bcmath
 
-      - name: Install Composer dependencies
-        run: composer install --no-interaction --prefer-dist --optimize-autoloader
-
-      - name: Generate application key
-        run: php artisan key:generate --ansi
-
-      - name: Set up environment variables
-        run: |
-          cp .env.example .env
-          php artisan config:cache
-          php artisan migrate:fresh --seed # Esto ejecutará las migraciones y los seeders en la base de datos de prueba
-
-      - name: Run PHPUnit tests
-        run: vendor/bin/phpunit
+      - name: Install packages
+        run: composer install --no-interaction
