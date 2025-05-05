@@ -1,6 +1,19 @@
 name: Hola Mundo Workflow
 
-on: [push]
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      mensaje_personalizado:
+        description: 'Mensaje para imprimir'
+        required: false
+        default: '¡Hola desde la ejecución manual!'
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '0 9 * * *'
+  
 
 jobs:
   saludo_personalizado:
@@ -66,3 +79,14 @@ jobs:
           extensions: mbstring, xml, curl, zip, gd, mysqli, pdo_mysql, bcmath, soap, intl, redis
           coverage: none
           tools: composer:v2.1.3
+  otro_job_paralelo:
+    runs-on: windows-latest
+    steps:
+      - name: Saludo en Windows
+        run: echo "Hola desde Windows"
+  job_final:
+    needs: other
+    runs-on: ubuntu-latest
+    steps:
+      - name: Job finalizado
+      run: echo "Todos los jobs anteriores se completaron"
