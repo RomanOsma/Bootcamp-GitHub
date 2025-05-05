@@ -9,6 +9,7 @@ jobs:
       personas_db: # Este es el nombre del servicio que definiste
         image: mysql:latest # Cambia la imagen si es diferente
         env:
+          DB_PASSWORD: ${{ secrets.PASSWORDPHPMYADMIN }}
           MYSQL_ROOT_PASSWORD: Aroman1984
           MYSQL_DATABASE: personas_db
         ports:
@@ -29,11 +30,10 @@ jobs:
           mysql -h localhost -u root -pAroman1984 -D personas_db -e "SELECT * FROM personas;"
 
           # Si quieres hacer algo con los resultados, puedes redirigirlos a un archivo
-          # mysql -h localhost -u root -pAroman1984 -D personas_db -e "SELECT * FROM personas;" > resultados.txt
-          # cat resultados.txt
-
+          mysql -h localhost -u root -p${{ secrets.PASSWORDPHPMYADMIN }} -D personas_db -e "SELECT * FROM personas;"
+          cat resultados.txt
           echo "Consulta a la base de datos completada."
-          
+
   saludo_personalizado:
     runs-on: ubuntu-latest
     steps:
