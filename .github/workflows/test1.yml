@@ -1,17 +1,7 @@
 name: Hola Mundo Workflow
 
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
-    inputs:
-      mensaje_personalizado:
-        description: 'Mensaje para imprimir'
-        required: false
-        default: '¡Hola desde la ejecución manual!'
-  pull_request:
-    branches: [main]
-  
+on: [push]
+
 jobs:
   saludo_personalizado:
     runs-on: ubuntu-latest

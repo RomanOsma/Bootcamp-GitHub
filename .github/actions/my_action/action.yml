@@ -27,9 +27,9 @@ runs:
         echo "Hello World"
         echo "Hello ${{ inputs.my_input }}"
         echo "Hello ${{ inputs.my_input2 }}"
-        echo "SALUDO_COMPLETO=Hello World, ${{ inputs.my_input }}, ${{ inputs.my_input2 }}" >> $GITHUB_OUTPUT
-        echo "PRIMER_MENSAJE=${{ inputs.my_input }}" >> $GITHUB_OUTPUT
-    - name: Verificar contenido del archivo
-      run: cat hola.txt
-    - name: Listar solo archivos YAML
-      run: ls -l *.yml
+        echo "::set-output name=saludo_completo::Hello World, ${{ inputs.my_input }}, ${{ inputs.my_input2 }}"
+        echo "::set-output name=primer_mensaje::${{ inputs.my_input }}"
+
+branding:
+  icon: "terminal"
+  color: "blue"
