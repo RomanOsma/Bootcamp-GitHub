@@ -1,8 +1,23 @@
 name: Despliegue a Servidor
 
 on:
-  push:
-    branches: [master] # Cambia a tu rama principal
+  workflow_dispatch:
+    inputs:
+      server:
+        description: 'Selecciona el servidor de despliegue'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+      branch:
+        description: 'Selecciona la rama a desplegar'
+        required: true
+        default: 'master'
+        type: choice
+        options:
+          - master
 
 jobs:
   deploy:
