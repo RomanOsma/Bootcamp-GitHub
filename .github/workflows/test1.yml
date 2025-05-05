@@ -20,12 +20,13 @@ jobs:
         run: |
           echo "El saludo completo generado por la acción es: ${{ steps.mi_accion.outputs.saludo_completo }}"
           echo "El primer mensaje de la acción fue: ${{ steps.mi_accion.outputs.primer_mensaje }}"
+
   hola:
     runs-on: ubuntu-latest
     needs: saludo_personalizado
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4   # Versión principal recomendada
+        uses: actions/checkout@v4
 
       - name: Ejecutar comandos básicos
         run: |
@@ -33,6 +34,7 @@ jobs:
           touch hola.txt
           echo "Hola Mundo" >> hola.txt
           cat hola.txt
+
   other:
     runs-on: ubuntu-latest
     needs: hola
@@ -46,17 +48,13 @@ jobs:
       - name: Ejecutar script Linux
         run: |
           ls -la
-          sudo apt-get update   # Comando correcto para Linux
+          sudo apt-get update
           chmod +x ./.github/script.sh
           ./.github/script.sh
-      - name: Ejecutar script Actions
-        run: |
-          echo "Hola Mundo desde el script de Actions"
-          chmod +x ./.github/actions/my_action/action.yml
       - name: Setup Node.js environment
         uses: actions/setup-node@v4.4.0
         with:
-          node-version: latest   # Cambia esto a la versión de Node.js que necesites
+          node-version: latest
 
       - name: node version
         run: node --version
@@ -64,28 +62,7 @@ jobs:
       - name: PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'   # Cambia esto a la versión de PHP que necesites
+          php-version: '8.3'
           extensions: mbstring, xml, curl, zip, gd, mysqli, pdo_mysql, bcmath, soap, intl, redis
-          coverage: none   # Cambia esto a 'xdebug' si necesitas cobertura de código
-          tools: composer:v2.1.3   # Cambia esto a la versión de Composer que necesites
-
-
-
-#Comentarios:
-#Sintaxis Correcta: La estructura básica del workflow es correcta. Defines un name y el evento on: [push] que lo dispara.
-#jobs: Tienes dos jobs definidos: hola y other.
-#El job hola se ejecuta en ubuntu-latest y tiene dos pasos: Checkout code y Ejecutar comandos básicos.
-#El job other también se ejecuta en ubuntu-latest, depende del job hola (needs: hola), y tiene varios pasos para listar archivos, ejecutar un script (que parece que no está incluido en los archivos que me has dado), configurar Node.js y PHP.
-#Uso de actions/checkout: Estás utilizando la acción actions/checkout para descargar el código del repositorio, lo cual es fundamental en la mayoría de los workflows. La versión @v4 es una buena práctica.
-#Comandos en run: Los comandos dentro de la clave run se ejecutarán en el entorno especificado (por defecto, bash en Linux).
-#Comentarios Innecesarios: La línea comentada #git rm --cached ... parece ser un comando que ejecutaste localmente y no pertenece al archivo del workflow.
-#Ejecución de action.yml: En el paso llamado "Ejecutar script Actions", intentas cambiar los permisos de action.yml. Esto no es necesario ni recomendable, ya que action.yml es un archivo de definición, no un script ejecutable. Para usar tu acción my_action, deberías crear un nuevo paso uses que la invoque.
-
-
-#Explicación de los cambios:
-#Hemos creado un nuevo job llamado saludo_personalizado para demostrar el uso de tu acción.
-#En el paso Ejecutar mi acción:
-#Le hemos asignado un id: mi_accion. Esto es importante para poder referenciar sus salidas en pasos posteriores.
-#Usamos uses: ./.github/actions/my_action para indicar la ruta a tu acción dentro del repositorio.
-#Utilizamos la sección with para proporcionar valores a las entradas my_input y my_input2.
-#En el paso Mostrar salidas de la acción, accedemos a las salidas de la acción utilizando ${{ steps.mi_accion.outputs.saludo_completo }} y ${{ steps.mi_accion.outputs.primer_mensaje }}.
+          coverage: none
+          tools: composer:v2.1.3

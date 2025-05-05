@@ -12,44 +12,6 @@ inputs:
     required: false
     default: "Grandes Líderes"
 
-runs:
-  using: "composite"
-  steps:
-    - name: Saludo
-      shell: bash
-      run: |
-        echo "Hola MUNDO"
-        echo "HelloA ${{ inputs.my_input }}"
-        echo "HelloB ${{ inputs.my_input2 }}"
-
-branding:
-  icon: "terminal"
-  color: "blue"
-
-/*
-Comentarios:
-
-Sintaxis Correcta: La sintaxis general del YAML es correcta. Defines el name, description, author, inputs, runs, y branding de la acción.
-inputs Definidos Correctamente: Has definido dos entradas (my_input y my_input2) con sus respectivas descripciones, indicando si son requeridas y proporcionando valores por defecto. Esto es muy útil para hacer tu acción configurable.
-Uso de inputs en runs: Dentro de la sección runs, estás utilizando correctamente la sintaxis ${{ inputs.nombre_de_la_variable }} para acceder a los valores de las entradas en el script de Bash.
-runs: composite: Estás utilizando composite, lo cual es adecuado para acciones que ejecutan múltiples pasos directamente en el mismo contexto del workflow.
-branding: La sección de branding es opcional pero útil para darle un toque visual a tu acción en el GitHub Marketplace.
-*/
-
-name: "My Action"
-description: "My custom action"
-author: "Angel Roman"
-
-inputs:
-  my_input:
-    description: "My primer mensaje"
-    required: true
-    default: "Angel Roman"
-  my_input2:
-    description: "My segundo mensaje"
-    required: false
-    default: "Grandes Líderes"
-
 outputs:
   saludo_completo:
     description: "Mensaje de saludo completo"
@@ -71,11 +33,3 @@ runs:
 branding:
   icon: "terminal"
   color: "blue"
-
-
-#Explicación de los cambios:
-#outputs Section: Hemos añadido una sección outputs donde definimos dos salidas: saludo_completo y primer_mensaje, cada una con su descripción.
-#::set-output Command: En el paso Saludo dentro de runs, utilizamos el comando especial de GitHub Actions ::set-output name=<nombre_de_la_salida>::<valor> para asignar valores a nuestras salidas.
-#::set-output name=saludo_completo::Hello World, ${{ inputs.my_input }}, ${{ inputs.my_input2 }} establece el valor de la salida saludo_completo como una concatenación de los saludos.
-#::set-output name=primer_mensaje::${{ inputs.my_input }} establece el valor de la salida primer_mensaje con el valor de la entrada my_input.
-#Ahora, en un workflow que utilice esta acción, podrías acceder a estos valores de salida en pasos posteriores utilizando la sintaxis ${{ steps.<id_del_paso>.outputs.<nombre_de_la_salida> }}.
