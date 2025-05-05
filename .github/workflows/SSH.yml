@@ -1,0 +1,23 @@
+name: Despliegue por SSH
+
+on:
+  push:
+    branches: [main] # Cambia a tu rama principal
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configurar conexión SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Ejemplo de comando SSH (listar directorio remoto)
+        run: ssh -o StrictHostKeyChecking=no ${{ secrets.PASSWORDPHPMYADMIN }}@${{ secrets.SSH_HOST }} 'ls -l /var/www/'
+
+      - name: Fin de la conexión SSH
+        run: echo "Conexión SSH configurada y probada."
