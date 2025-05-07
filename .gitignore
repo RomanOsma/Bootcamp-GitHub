@@ -24,7 +24,6 @@ __pycache__/
 
 # Archivos de configuración locales
 .env
-*.zip
 *.mp4
 *.avi
 *.mkv
