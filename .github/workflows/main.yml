@@ -9,7 +9,7 @@ jobs:
       personas_db: # Nombre del servicio de la base de datos
         image: mysql:latest # Imagen de MySQL (puedes cambiar la versión)
         env:
-          #DB_PASSWORD: ${{ secrets.PASSWORDPHPMYADMIN }} # Accediendo al secreto para la contraseña
+          DB_PASSWORD: ${{ secrets.PASSWORDPHPMYADMIN }} # Accediendo al secreto para la contraseña
           MYSQL_ROOT_PASSWORD: Aroman1984 # Contraseña root de MySQL
           MYSQL_DATABASE: personas_db # Nombre de la base de datos
         ports:
